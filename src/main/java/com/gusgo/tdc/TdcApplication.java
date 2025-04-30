@@ -1,13 +1,13 @@
-package gusgo.tdc;
+package com.gusgo.tdc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class TdcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(TdcApplication.class, args);
 	}
 
 }
