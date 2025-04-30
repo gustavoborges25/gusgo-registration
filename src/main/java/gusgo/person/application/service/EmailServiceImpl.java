@@ -10,10 +10,7 @@ import gusgo.person.rest.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,39 +20,29 @@ public class EmailServiceImpl implements EmailService {
     private final EmailRepository repository;
 
     @Override
-    public List<Email> update(Person person, List<EmailDTO> emailDTOS) {
+    public void update(Person person, List<EmailDTO> emailDTOS) {
         if (emailDTOS.isEmpty()) {
             throw new BusinessException(ValidationConstants.EMAIL_IS_MANDATORY);
         }
 
-        List<Email> updatedEmails = new ArrayList<>();
-
         List<Email> existingEmails = repository.findAll();
         var existingEmailMap = existingEmails.stream().collect(Collectors.toMap(Email::getId, email -> email));
+
+        person.getEmails().clear();
 
         emailDTOS.forEach(emailDTO -> {
             if (emailDTO.getId() == null) {
                 Email newEmail = createEmailFromDTO(person, emailDTO);
-                updatedEmails.add(repository.save(newEmail));
+                person.addEmail(newEmail);
             } else {
                 Email existingEmail = existingEmailMap.get(emailDTO.getId());
                 if (existingEmail != null) {
                     updateEmailFromDTO(existingEmail, emailDTO);
-                    updatedEmails.add(repository.save(existingEmail));
+                    person.addEmail(existingEmail);
                 }
             }
         });
 
-        List<UUID> updatedIds = emailDTOS.stream()
-                .map(EmailDTO::getId)
-                .filter(Objects::nonNull)
-                .toList();
-
-        existingEmails.stream()
-                .filter(address -> !updatedIds.contains(address.getId()))
-                .forEach(repository::delete);
-
-        return updatedEmails;
     }
 
     private Email createEmailFromDTO(Person person, EmailDTO emailDTO) {

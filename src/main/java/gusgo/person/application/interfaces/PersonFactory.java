@@ -10,5 +10,5 @@ public interface PersonFactory {
 
     Person create(PersonDTO personDto) throws BusinessException;
 
-    Person uodate(UUID id, PersonDTO personDto) throws BusinessException;
+    Person update(UUID id, PersonDTO personDto) throws BusinessException;
 }

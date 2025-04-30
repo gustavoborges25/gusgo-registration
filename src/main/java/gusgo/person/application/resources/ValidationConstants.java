@@ -8,9 +8,13 @@ public class ValidationConstants {
 
     public static final String ERP_CODE_IS_MANDATORY = isMandatory("ERP Code");
 
+    public static final String ERP_CODE_ALREADY_EXISTS = "erpCode already exists";
+
     public static final String DOCUMENT_CPF_IS_MANDATORY = isMandatory("Document CPF");
 
     public static final String DOCUMENT_CNPJ_IS_MANDATORY = isMandatory("Document CNPJ");
+
+    public static final String MAIN_DOCUMENT_ALREADY_EXISTS = "mainDocument already exists";
 
     public static final String PHONE_IS_MANDATORY = isMandatory("Phone Number");
 

@@ -6,10 +6,7 @@ import gusgo.person.application.dto.PersonDTO;
 import gusgo.person.application.dto.PhoneDTO;
 import gusgo.person.application.factory.BusinessPersonFactory;
 import gusgo.person.application.factory.IndividualPersonFactory;
-import gusgo.person.application.interfaces.IndividualPersonRepository;
-import gusgo.person.application.interfaces.PersonFactory;
-import gusgo.person.application.interfaces.BusinessPersonRepository;
-import gusgo.person.application.interfaces.PersonService;
+import gusgo.person.application.interfaces.*;
 import gusgo.person.application.mapper.PersonMapper;
 import gusgo.person.application.resources.PersonType;
 import gusgo.person.application.resources.ValidationConstants;
@@ -159,7 +156,7 @@ public class PersonServiceImpl implements PersonService {
             throw new BusinessException(ValidationConstants.INVALID_PERSON_TYPE);
         }
 
-        factory.uodate(id, personDTO);
+        factory.update(id, personDTO);
 
         return personDTO;
     }

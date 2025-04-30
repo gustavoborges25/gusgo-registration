@@ -9,16 +9,12 @@ import gusgo.person.application.interfaces.PhoneService;
 import gusgo.person.application.mapper.PersonMapper;
 import gusgo.person.application.resources.ValidationConstants;
 import gusgo.person.domain.interfaces.IndividualPersonDomainService;
-import gusgo.person.domain.model.Address;
-import gusgo.person.domain.model.Email;
 import gusgo.person.domain.model.IndividualPerson;
 import gusgo.person.domain.model.Person;
-import gusgo.person.domain.model.Phone;
 import gusgo.person.rest.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -47,27 +43,25 @@ public class IndividualPersonFactory implements PersonFactory {
     }
 
     @Override
-    public Person uodate(UUID id, PersonDTO personDto) throws BusinessException {
-        IndividualPerson person = repository.findById(id).orElseThrow(() -> new BusinessException(ValidationConstants.PERSON_NOT_FOUND));
+    public Person update(UUID id, PersonDTO personDto) throws BusinessException {
+        IndividualPerson individualPerson = repository.findById(id).orElseThrow(() -> new BusinessException(ValidationConstants.PERSON_NOT_FOUND));
 
-        List<Address> addressesUpdated = addressService.update(person, personDto.getAddresses());
-        List<Email> emailsUpdated = emailService.update(person, personDto.getEmails());
-        List<Phone> phonesUpdated = phoneService.update(person, personDto.getPhones());
+        addressService.update(individualPerson, personDto.getAddresses());
+        emailService.update(individualPerson, personDto.getEmails());
+        phoneService.update(individualPerson, personDto.getPhones());
 
-        person.setAddresses(addressesUpdated);
-        person.setEmails(emailsUpdated);
-        person.setPhones(phonesUpdated);
+        individualPerson.setName(personDto.getName());
+        individualPerson.setNickname(personDto.getNickname());
+        individualPerson.setErpCode(personDto.getErpCode());
+        individualPerson.setIsCustomer(personDto.getIsCustomer().equals("YES"));
+        individualPerson.setIsProvider(personDto.getIsProvider().equals("YES"));
+        individualPerson.setDocumentCPF(personDto.getMainDocument());
+        individualPerson.setDocumentRG(personDto.getSecondaryDocument());
 
-        person.setName(personDto.getName());
-        person.setNickname(personDto.getNickname());
-        person.setErpCode(personDto.getErpCode());
-        person.setIsCustomer(personDto.getIsCustomer().equals("YES"));
-        person.setIsProvider(personDto.getIsProvider().equals("YES"));
-        person.setDocumentCPF(personDto.getMainDocument());
-        person.setDocumentRG(personDto.getSecondaryDocument());
+        individualPersonDomainService.validateIndividualPerson(individualPerson);
 
-        repository.save(person);
+        repository.save(individualPerson);
 
-        return person;
+        return individualPerson;
     }
 }

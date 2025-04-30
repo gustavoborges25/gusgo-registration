@@ -9,16 +9,12 @@ import gusgo.person.application.interfaces.PhoneService;
 import gusgo.person.application.mapper.PersonMapper;
 import gusgo.person.application.resources.ValidationConstants;
 import gusgo.person.domain.interfaces.BusinessPersonDomainService;
-import gusgo.person.domain.model.Address;
 import gusgo.person.domain.model.BusinessPerson;
-import gusgo.person.domain.model.Email;
 import gusgo.person.domain.model.Person;
-import gusgo.person.domain.model.Phone;
 import gusgo.person.rest.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -48,27 +44,25 @@ public class BusinessPersonFactory implements PersonFactory {
     }
 
     @Override
-    public Person uodate(UUID id, PersonDTO personDto) throws BusinessException {
-        BusinessPerson person = repository.findById(id).orElseThrow(() -> new BusinessException(ValidationConstants.PERSON_NOT_FOUND));
+    public Person update(UUID id, PersonDTO personDto) throws BusinessException {
+        BusinessPerson businessPerson = repository.findById(id).orElseThrow(() -> new BusinessException(ValidationConstants.PERSON_NOT_FOUND));
 
-        List<Address> addressesUpdated = addressService.update(person, personDto.getAddresses());
-        List<Email> emailsUpdated = emailService.update(person, personDto.getEmails());
-        List<Phone> phonesUpdated = phoneService.update(person, personDto.getPhones());
+        addressService.update(businessPerson, personDto.getAddresses());
+        emailService.update(businessPerson, personDto.getEmails());
+        phoneService.update(businessPerson, personDto.getPhones());
 
-        person.setAddresses(addressesUpdated);
-        person.setEmails(emailsUpdated);
-        person.setPhones(phonesUpdated);
+        businessPerson.setName(personDto.getName());
+        businessPerson.setNickname(personDto.getNickname());
+        businessPerson.setErpCode(personDto.getErpCode());
+        businessPerson.setIsCustomer(personDto.getIsCustomer().equals("YES"));
+        businessPerson.setIsProvider(personDto.getIsProvider().equals("YES"));
+        businessPerson.setDocumentCNPJ(personDto.getMainDocument());
+        businessPerson.setDocumentIE(personDto.getSecondaryDocument());
 
-        person.setName(personDto.getName());
-        person.setNickname(personDto.getNickname());
-        person.setErpCode(personDto.getErpCode());
-        person.setIsCustomer(personDto.getIsCustomer().equals("YES"));
-        person.setIsProvider(personDto.getIsProvider().equals("YES"));
-        person.setDocumentCNPJ(personDto.getMainDocument());
-        person.setDocumentIE(personDto.getSecondaryDocument());
+        businessPersonDomainService.validateBusinessPerson(businessPerson);
 
-        repository.save(person);
+        repository.save(businessPerson);
 
-        return person;
+        return businessPerson;
     }
 }

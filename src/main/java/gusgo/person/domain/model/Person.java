@@ -66,4 +66,19 @@ public abstract class Person {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public void addAddress(Address address) {
+        addresses.add(address);
+        address.setPerson(this); // Manter a relação bidirecional
+    }
+
+    public void addEmail(Email email) {
+        emails.add(email);
+        email.setPerson(this); // Manter a relação bidirecional
+    }
+
+    public void addPhone(Phone phone) {
+        phones.add(phone);
+        phone.setPerson(this); // Manter a relação bidirecional
+    }
+
 }

@@ -15,7 +15,7 @@ public class EmailDTO {
     private UUID id;
 
     @NotNull(message = "is mandatory")
-    @NotEmpty(message = "is mandatory")
+    @NotEmpty(message = "cannot be empty")
     @Size(max = 255, message = "email must be at most 255 characters long")
     private String email;
 

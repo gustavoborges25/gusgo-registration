@@ -23,39 +23,29 @@ public class PhoneServiceImpl implements PhoneService {
     private final PhoneRepository repository;
 
     @Override
-    public List<Phone> update(Person person, List<PhoneDTO> phoneDTOS) {
+    public void update(Person person, List<PhoneDTO> phoneDTOS) {
         if (phoneDTOS.isEmpty()) {
             throw new BusinessException(ValidationConstants.PHONE_IS_MANDATORY);
         }
 
-        List<Phone> updatedPhone = new ArrayList<>();
-
         List<Phone> existingPhones = repository.findAll();
         var existingPhoneMap = existingPhones.stream().collect(Collectors.toMap(Phone::getId, phone -> phone));
+
+        person.getPhones().clear();
 
         phoneDTOS.forEach(phoneDTO -> {
             if (phoneDTO.getId() == null) {
                 Phone newPhone = createPhoneFromDTO(person, phoneDTO);
-                updatedPhone.add(repository.save(newPhone));
+                person.addPhone(newPhone);
             } else {
                 Phone existingPhone = existingPhoneMap.get(phoneDTO.getId());
                 if (existingPhone != null) {
                     updatePhoneFromDTO(existingPhone, phoneDTO);
-                    updatedPhone.add(repository.save(existingPhone));
+                    person.addPhone(existingPhone);
                 }
             }
         });
 
-        List<UUID> updatedIds = phoneDTOS.stream()
-                .map(PhoneDTO::getId)
-                .filter(Objects::nonNull)
-                .toList();
-
-        existingPhones.stream()
-                .filter(address -> !updatedIds.contains(address.getId()))
-                .forEach(repository::delete);
-
-        return updatedPhone;
     }
 
     private Phone createPhoneFromDTO(Person person, PhoneDTO phoneDTO) {

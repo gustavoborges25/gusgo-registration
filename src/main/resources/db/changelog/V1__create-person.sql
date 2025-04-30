@@ -3,7 +3,7 @@ CREATE TABLE person (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) not null,
     nickname VARCHAR(255),
-    erp_code VARCHAR(255) not null,
+    erp_code VARCHAR(255) not null unique,
     is_custumer BOOLEAN,
     is_provider BOOLEAN,
     created_at TIMESTAMP not null,
@@ -11,7 +11,7 @@ CREATE TABLE person (
 );
 CREATE TABLE individual_person (
     id UUID PRIMARY KEY REFERENCES person(id),
-    document_cpf VARCHAR(255) not null,
+    document_cpf VARCHAR(255) not null unique,
     document_rg VARCHAR(255)
 );
 CREATE TABLE business_person (
