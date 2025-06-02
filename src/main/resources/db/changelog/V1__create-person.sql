@@ -17,6 +17,7 @@ CREATE TABLE individual_person (
 CREATE TABLE business_person (
     id UUID PRIMARY KEY REFERENCES person(id),
     document_cnpj VARCHAR(255) not null,
+    is_branch BOOLEAN,
     document_ie VARCHAR(255)
 );
 CREATE TABLE address (

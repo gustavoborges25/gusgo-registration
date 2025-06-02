@@ -17,4 +17,7 @@ public class BusinessPerson extends Person {
 
     @Column(name = "document_ie")
     private String documentIE;
+
+    @Column(name = "is_branch")
+    private Boolean isBranch;
 }

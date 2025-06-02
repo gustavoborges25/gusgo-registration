@@ -8,4 +8,5 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - './storage/app/postgres/data:/var/lib/postgresql/data'
+      - './storage/app/postgres/data'
+    user: postgres

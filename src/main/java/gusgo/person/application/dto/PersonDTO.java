@@ -32,6 +32,10 @@ public class PersonDTO {
     private String isProvider;
 
     @NotNull(message = "is mandatory")
+    @Pattern(regexp = "YES|NO", message = "invalid value. Accept only YES or NO.")
+    private String isBranch;
+
+    @NotNull(message = "is mandatory")
     @NotEmpty(message = "cannot be empty")
     @Size(max = 255, message = "erpCode must be at most 255 characters long")
     private String erpCode;

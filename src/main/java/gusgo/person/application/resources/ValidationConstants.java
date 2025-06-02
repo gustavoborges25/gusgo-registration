@@ -16,6 +16,10 @@ public class ValidationConstants {
 
     public static final String MAIN_DOCUMENT_ALREADY_EXISTS = "mainDocument already exists";
 
+    public static final String BRANCH_CANNOT_BE_A_CUSTOMER = "branch cannot be a customer";
+
+    public static final String BRANCH_CANNOT_BE_A_PROVIDER = "branch cannot be a provider";
+
     public static final String PHONE_IS_MANDATORY = isMandatory("Phone Number");
 
     public static final String EMAIL_IS_MANDATORY = isMandatory("Email");

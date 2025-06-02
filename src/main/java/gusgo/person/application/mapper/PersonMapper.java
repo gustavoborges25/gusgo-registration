@@ -18,6 +18,7 @@ public interface PersonMapper {
 
     @Mapping(target = "isCustomer", expression = "java(person.getIsCustomer() ? \"YES\" : \"NO\")")
     @Mapping(target = "isProvider", expression = "java(person.getIsProvider() ? \"YES\" : \"NO\")")
+    @Mapping(target = "isBranch", expression = "java(person.getIsBranch() ? \"YES\" : \"NO\")")
     @Mapping(target = "type", expression = "java(\"BUSINESS\")")
     @Mapping(source = "documentCNPJ", target = "mainDocument")
     @Mapping(source = "documentIE", target = "secondaryDocument")
@@ -27,6 +28,7 @@ public interface PersonMapper {
 
     @Mapping(target = "isCustomer", expression = "java(person.getIsCustomer() ? \"YES\" : \"NO\")")
     @Mapping(target = "isProvider", expression = "java(person.getIsProvider() ? \"YES\" : \"NO\")")
+    @Mapping(target = "isBranch", expression = "java(\"NO\")")
     @Mapping(target = "type", expression = "java(\"INDIVIDUAL\")")
     @Mapping(source = "documentCPF", target = "mainDocument")
     @Mapping(source = "documentRG", target = "secondaryDocument")
@@ -40,6 +42,7 @@ public interface PersonMapper {
     @Mapping(source = "nickname", target = "nickname")
     @Mapping(target = "isCustomer", expression = "java(String.valueOf(\"YES\").equalsIgnoreCase(personDto.getIsCustomer()))")
     @Mapping(target = "isProvider", expression = "java(String.valueOf(\"YES\").equalsIgnoreCase(personDto.getIsProvider()))")
+    @Mapping(target = "isBranch", expression = "java(String.valueOf(\"YES\").equalsIgnoreCase(personDto.getIsBranch()))")
     @Mapping(source = "mainDocument", target = "documentCNPJ")
     @Mapping(source = "secondaryDocument", target = "documentIE")
     @Mapping(target = "createdAt", ignore = true)

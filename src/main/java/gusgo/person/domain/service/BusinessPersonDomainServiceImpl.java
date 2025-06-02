@@ -33,6 +33,14 @@ public class BusinessPersonDomainServiceImpl implements BusinessPersonDomainServ
             throw new BusinessException(ValidationConstants.DOCUMENT_CNPJ_IS_MANDATORY);
         }
 
+        if (businessPerson.getIsBranch() && businessPerson.getIsCustomer()) {
+            throw new BusinessException(ValidationConstants.BRANCH_CANNOT_BE_A_CUSTOMER);
+        }
+
+        if (businessPerson.getIsBranch() && businessPerson.getIsProvider()) {
+            throw new BusinessException(ValidationConstants.BRANCH_CANNOT_BE_A_PROVIDER);
+        }
+
         Optional<BusinessPerson> existingPerson = repository.findByDocumentCNPJ(businessPerson.getDocumentCNPJ());
 
         if (existingPerson.isPresent() && existingPerson.get().getId() != businessPerson.getId()) {
