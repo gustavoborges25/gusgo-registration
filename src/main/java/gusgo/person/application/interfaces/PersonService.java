@@ -16,4 +16,6 @@ public interface PersonService {
     void uploadBp(MultipartFile file) throws BusinessException;
 
     PersonDTO update(UUID id, PersonDTO personDTO);
+
+    PersonDTO merge(PersonDTO personDTO);
 }

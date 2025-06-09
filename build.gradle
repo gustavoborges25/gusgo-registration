@@ -47,6 +47,9 @@ dependencies {
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+
 	// Poi para XLS
 	implementation 'org.apache.poi:poi:5.2.2'
 	implementation 'org.apache.poi:poi-ooxml:5.2.2'

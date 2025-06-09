@@ -1,6 +1,6 @@
 # Gusgo - Person
 
-A project that implements a CRUD (Create, Read, Update, Delete) system to manage information about people.
+Microservice that manages the registration legal entities(business person) or natural persons(individual person).
 
 ## Description
 
@@ -9,7 +9,7 @@ This project allows users to manage a list of people, including their personal i
 ## Technologies Used
 
 - Java 21
-- Spring Boot 3.2.4
+- Spring Boot 3.5.0
 - Spring Data JPA
 - PostgreSQL
 - Lombok
@@ -41,7 +41,7 @@ Before you begin, make sure you have the following installed on your machine:
    git clone https://github.com/gustavoborges25/gusgo-person
    cd gusgo-person
    
-2. Set up the PostgreSQL database:
+2. Set up the PostgreSQL database and Kafka:
    ```bash
    docker-compose up -d 
    ## docker-compose will spin up an instance of the PostgreSQL database. If you have any questions, look at the docker-compose.yml file in the project root.

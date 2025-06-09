@@ -160,4 +160,19 @@ public class PersonServiceImpl implements PersonService {
 
         return personDTO;
     }
+
+    @Override
+    public PersonDTO merge(PersonDTO personDTO) {
+        BusinessPerson businessPerson = businessPersonRepository.findByDocumentCNPJ(personDTO.getMainDocument()).orElse(null);
+        if (businessPerson != null) {
+            return update(businessPerson.getId(), personDTO);
+        }
+
+        IndividualPerson individualPerson = individualPersonRepository.findByDocumentCPF(personDTO.getMainDocument()).orElse(null);
+        if (individualPerson != null) {
+            return update(individualPerson.getId(), personDTO);
+        }
+
+        return create(personDTO);
+    }
 }
