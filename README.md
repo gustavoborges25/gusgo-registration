@@ -1,4 +1,4 @@
-# Gusgo - Person
+# Gusgo - Registration
 
 Microservice that manages the registration legal entities(business person) or natural persons(individual person).
 
@@ -39,7 +39,7 @@ Before you begin, make sure you have the following installed on your machine:
 1. Clone the repository:
    ```bash
    git clone https://github.com/gustavoborges25/gusgo-person
-   cd gusgo-person
+   cd gusgo-registration
    
 2. Set up the PostgreSQL database and Kafka:
    ```bash

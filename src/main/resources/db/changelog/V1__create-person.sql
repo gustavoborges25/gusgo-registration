@@ -1,11 +1,20 @@
 --V1__create-person.sql
-CREATE TABLE person (
+CREATE TABLE seller (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) not null,
+    erp_id VARCHAR(255) not null unique,
+    created_at TIMESTAMP not null,
+    updated_at TIMESTAMP not null
+);
+CREATE TABLE person (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    seller_id UUID REFERENCES seller(id),
+    name VARCHAR(255) not null,
     nickname VARCHAR(255),
-    erp_code VARCHAR(255) not null unique,
-    is_custumer BOOLEAN,
+    erp_id VARCHAR(255) not null unique,
+    is_customer BOOLEAN,
     is_provider BOOLEAN,
+    status VARCHAR(40) not null,
     created_at TIMESTAMP not null,
     updated_at TIMESTAMP not null
 );
@@ -25,8 +34,8 @@ CREATE TABLE address (
     person_id UUID REFERENCES person(id),
     street VARCHAR(255) not null,
     number VARCHAR(255) not null,
-    neighborhood VARCHAR(255) not null,
-    zip_code VARCHAR(40) not null,
+    neighborhood VARCHAR(255),
+    zip_code VARCHAR(40),
     complement VARCHAR(255),
     state VARCHAR(255) not null,
     city VARCHAR(255) not null,
