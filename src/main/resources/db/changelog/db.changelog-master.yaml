@@ -6,3 +6,10 @@ databaseChangeLog:
         - sqlFile:
             path: V1__create-person.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 2
+      author: gustavo
+      changes:
+        - sqlFile:
+            path: V2__kafka-log.sql
+            relativeToChangelogFile: true

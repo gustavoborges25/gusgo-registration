@@ -1,6 +1,6 @@
-# Gusgo - Registration
+# Gusgo - Person
 
-Microservice that manages the registration legal entities(business person) or natural persons(individual person).
+Microservice that manages the registration juridical and natural person.
 
 ## Description
 
@@ -39,12 +39,12 @@ Before you begin, make sure you have the following installed on your machine:
 1. Clone the repository:
    ```bash
    git clone https://github.com/gustavoborges25/gusgo-person
-   cd gusgo-registration
+   cd gusgo-person
    
 2. Set up the PostgreSQL database and Kafka:
    ```bash
    docker-compose up -d 
-   ## docker-compose will spin up an instance of the PostgreSQL database. If you have any questions, look at the docker-compose.yml file in the project root.
+   ## docker-compose will spin up an instance of the PostgreSQL database and Kafka for messaging. If you have any questions, look at the docker-compose.yml file in the project root.
 3. Compile the project:
    ```bash
    ./gradlew build

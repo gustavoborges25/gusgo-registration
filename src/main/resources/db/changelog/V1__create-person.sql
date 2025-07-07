@@ -18,12 +18,12 @@ CREATE TABLE person (
     created_at TIMESTAMP not null,
     updated_at TIMESTAMP not null
 );
-CREATE TABLE individual_person (
+CREATE TABLE natural_person (
     id UUID PRIMARY KEY REFERENCES person(id),
     document_cpf VARCHAR(255) not null unique,
     document_rg VARCHAR(255)
 );
-CREATE TABLE business_person (
+CREATE TABLE juridical_person (
     id UUID PRIMARY KEY REFERENCES person(id),
     document_cnpj VARCHAR(255) not null,
     is_branch BOOLEAN,
@@ -33,7 +33,7 @@ CREATE TABLE address (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     person_id UUID REFERENCES person(id),
     street VARCHAR(255) not null,
-    number VARCHAR(255) not null,
+    number VARCHAR(255),
     neighborhood VARCHAR(255),
     zip_code VARCHAR(40),
     complement VARCHAR(255),
